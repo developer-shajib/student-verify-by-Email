@@ -1,0 +1,26 @@
+[
+    {
+        "id" : 1,
+        "title" : "We've got the best spareribs in town.",
+        "subtitle" : "Nulla eget mauris quis elit mollis ornare vitae ut odio. Cras tincidunt, augue vitae sollicitudin commodo,quam elit varius est, et ornare ante massa quis tellus. Mauris nec lacinia nisl.",
+        "photo" : "https://cdn.pixabay.com/photo/2016/12/26/17/28/spaghetti-1932466__340.jpg"
+    },
+    {
+        "id" : 2,
+        "title" : "We've got the best spareribs in town.",
+        "subtitle" : "Nulla eget mauris quis elit mollis ornare vitae ut odio. Cras tincidunt, augue vitae sollicitudin commodo,quam elit varius est, et ornare ante massa quis tellus. Mauris nec lacinia nisl.",
+        "photo" : "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?cs=srgb&dl=pexels-pixabay-461198.jpg&fm=jpg"
+    },
+    {
+        "id" : 3,
+        "title" : "We've got the best spareribs in town.",
+        "subtitle" : "Nulla eget mauris quis elit mollis ornare vitae ut odio. Cras tincidunt, augue vitae sollicitudin commodo,quam elit varius est, et ornare ante massa quis tellus. Mauris nec lacinia nisl.",
+        "photo" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiyU8XVPtFRW33p1mHgwSln63RNXbYexdzaQ&usqp=CAU"
+    },
+    {
+        "id" : 4,
+        "title" : "MERN Stack.",
+        "subtitle" : "Nulla eget mauris quis elit mollis ornare vitae ut odio. Cras tincidunt, augue vitae sollicitudin commodo,quam elit varius est, et ornare ante massa quis tellus. Mauris nec lacinia nisl.",
+        "photo" : "https://c4.wallpaperflare.com/wallpaper/869/719/717/cuisine-food-india-indian-wallpaper-preview.jpg"
+    }
+]
