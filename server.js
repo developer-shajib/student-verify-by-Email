@@ -2,8 +2,10 @@ const express = require('express');
 const path = require('path');
 const colors = require('colors');
 const dotenv = require('dotenv');
-const pageRoute = require('./routes/pageRoute');
+const studentRouter = require('./routes/studentRouter');
+const mainRouter = require('./routes/mainRouter');
 const expressLayouts = require('express-ejs-layouts');
+
 
 //environment variable
 dotenv.config();
@@ -26,7 +28,8 @@ app.set('layout', 'layouts/app')
 app.use(express.static('./public'));
 
 //router init
-app.use(pageRoute);
+app.use('/', mainRouter)
+app.use('/student',studentRouter);
 
 //create server 
 app.listen(port,()=>{

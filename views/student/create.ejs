@@ -1,0 +1,52 @@
+
+<div class="container my-5 student-form">
+    <div class="row">
+        <div class="col-md-6 m-auto">
+            <a class="btn btn-danger mb-3 add_btn" href="/student">Back</a>
+            <div class="card shadow">
+                <div class="card-header">
+                    <h2>Create Student Form</h2>
+                </div>
+                <div class="card-body">
+                    <form action="/student/create" method="post" enctype="multipart/form-data">
+                        <div class="my-3">
+                            <label for="">Name</label>
+                            <input name="name" class="form-control" type="text">
+                        </div>
+                        <div class="my-3">
+                            <label for="">Email</label>
+                            <input name="email" class="form-control" type="text">
+                        </div>
+                        <div class="my-3">
+                            <label for="">Cell</label>
+                            <input name="cell" class="form-control" type="text">
+                        </div>
+                        <div class="my-3">
+                            <label for="">Location</label>
+                            <select name="location" class="form-control" id="">
+                                <option value="">-select-</option>
+                                <option value="dhaka">Dhaka</option>
+                                <option value="cumilla">Cumilla</option>
+                                <option value="sylhet">Sylhet</option>
+                                <option value="dinajpur">Dinajpur</option>
+                            </select>
+                        </div>
+                        <div class="my-3">
+                            <label for="">Photo</label>
+                            <br>
+                            <img class="preload-student mb-3"  alt="">
+                            <br>
+                            <label for="student_upload">
+                                <img class="w-100 upload_image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQDOAAv2CM5KNl9BhbUmaFXxecnqRIsrWAWg&usqp=CAU" alt=""></label>
+                            <input name="student_photo" type="file" id="student_upload" multiple>
+                        </div>
+                        <div class="my-3">
+                            <input class="btn btn-primary form-control" type="submit">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

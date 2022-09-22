@@ -1,0 +1,61 @@
+
+<div class="container my-5 student-table">
+    <div class="row">
+        <div class="col-md-11 m-auto">
+            <a class="btn btn-danger mb-3 add_btn" href="/student">Back</a>
+            <div class="card shadow">
+                <div class="card-body">
+                    <h2>Unverified Students <i class="fas fa-ban"></i></h2>
+                    <table class="table table-striped soro-data-table mb-4">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Location</th>
+                                <th>Cell</th>
+                                <th>Verify</th>
+                                <th>Photo</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <% student.reverse().forEach((data,index) => { %>
+                                  <tr class="align-middle">
+                                <td scope="row"><%= index + 1 %> </td>
+                                <td><%= data.name %> </td>
+                                <td><%= data.email %></td>
+                                <td><%= data.location %></td>
+                                <td><%= data.cell %></td>
+                                <!-- <td><a class="btn btn-sm btn-warning" href="/student/verify_phone/<%= data.id %> ">Verify by Phone</a></td> -->
+                                <td>
+                                        <form action="/student/unverified_student" method="post">
+                                            <input class="phone_num" name="cell" type="text" value="<%= data.cell %>">
+                                            <input name="sms_page_id" type="text" value="<%= data.id %> ">
+                                            <input class="btn btn-sm btn-warning" type="submit" value="Verify by SMS">
+                                        </form>
+                                </td>
+
+                                <td>
+                                    <% if (data.photo == 'avatar.png') { %>
+                                              <img src="/images/<%= data.photo %>">
+                                    <% } else { %>
+                                        <img src="/images/students/<%= data.photo %>">
+                                    <% } %>
+                           
+                                </td>
+                                <td>
+                                    <a class="btn btn-sm btn-primary" href="/student/<%= data.id %> "> <i class="fas fa-eye"></i></a>
+                                    <a class="btn btn-sm btn-warning" href="/student/edit/<%= data.id %> "> <i class="fas fa-edit"></i></a>
+                                    <a class="btn btn-sm btn-danger delete_btn" href="/student/delete/<%= data.id %> "> <i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <% }) %>
+                       
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
