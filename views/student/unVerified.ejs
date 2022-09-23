@@ -29,11 +29,8 @@
                                 <td><%= data.cell %></td>
                                 <!-- <td><a class="btn btn-sm btn-warning" href="/student/verify_phone/<%= data.id %> ">Verify by Phone</a></td> -->
                                 <td>
-                                        <form action="/student/unverified_student" method="post">
-                                            <input class="phone_num" name="cell" type="text" value="<%= data.cell %>">
-                                            <input name="sms_page_id" type="text" value="<%= data.id %> ">
-                                            <input class="btn btn-sm btn-warning" type="submit" value="Verify by SMS">
-                                        </form>
+                                    <a class="btn btn-warning" href="/student/verify_phone/<%= data.id %> ">Verify by Phone</a>
+                                       
                                 </td>
 
                                 <td>

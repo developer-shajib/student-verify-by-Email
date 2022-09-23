@@ -1,6 +1,6 @@
 
 const express = require('express');
-const { getAllStudent, createStudent, singleShow, showEditPage , studentDataStore, deleteStudent, updateStudent, unverifiedStudent, verifyAccount, verifyByPhone, singlePhonePage, sendSMSFrom, otpPage, verifyToken, verifyWithPhone, sentSMSPhone} = require('../controllers/studentController');
+const { getAllStudent, createStudent, singleShow, showEditPage , studentDataStore, deleteStudent, updateStudent, unverifiedStudent, verifyAccount, verifyByPhone, singlePhonePage, sendSMSFrom, otpPage, verifyToken, verifyWithPhone, sentSMSPhone, phoneVerifyDone, phoneverifydonePage} = require('../controllers/studentController');
 const path = require('path');
 const studentPhotoMulter = require('../middleware/studentMulter');
 
@@ -14,7 +14,7 @@ const router = express.Router();
 router.get('/', getAllStudent);
 router.get('/unverified_student', unverifiedStudent);
 //verify with sms
-router.post('/unverified_student', sentSMSPhone);
+router.post('/phone_verify_done', phoneVerifyDone)
 router.get('/verify/:token', verifyToken)
 router.get('/create', createStudent);
 router.post('/create',studentPhotoMulter, studentDataStore);

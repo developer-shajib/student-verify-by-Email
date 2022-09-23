@@ -4,12 +4,13 @@ const buklSMSBd = require('../utility/bulkSmsBd');
 const studentVerified = require('../utility/sendMail');
 const { verifyEmail } = require('../utility/sendMail');
 const twilioSMS = require('../utility/twilioSMS');
+const vonAgeSMS = require('../utility/vonAgeSms');
 
 
 //verified student page
 const getAllStudent = (req,res)=>{
     const student = JSON.parse(readFileSync(path.join(__dirname,'../db/student.json')));
-    const verified = student.filter(data => data.isVerified == true);
+    const verified = student.filter(data => data.isVerified == true || data.phone_token == true);
 
     res.render('student/index',{student : verified})
 }
@@ -17,7 +18,8 @@ const getAllStudent = (req,res)=>{
 //unverified student page
 const unverifiedStudent = (req,res)=>{
     const student = JSON.parse(readFileSync(path.join(__dirname,'../db/student.json')));
-   const unverified = student.filter(data => data.isVerified == false);
+
+   const unverified = student.filter(data => data.isVerified == false && data.phone_token == false);
     res.render('../views/student/unVerified',{student : unverified})
 }
 
@@ -34,6 +36,49 @@ const singleShow = (req,res)=>{
     res.render('../views/student/singleShow',{
         data : single_data
     })
+}
+
+//verify with phone page
+const verifyWithPhone  = async (req,res)=>{
+    const student = JSON.parse(readFileSync(path.join(__dirname,'../db/student.json')));
+    const phone_token = Math.floor(Math.random()*1000000);
+    const phone_data = student.find(data =>data.id == req.params.id);
+
+    //sent message with twilio
+    // await twilioSMS(phone_data.cell,`Hi ${phone_data.name}.Your OTP Code is ${phone_token}.`)
+
+    student[student.findIndex(data => data.id == req.params.id)] = {
+        ...student[student.findIndex(data => data.id == req.params.id)],
+        phone_token : phone_token
+    };
+
+    writeFileSync(path.join(__dirname,'../db/student.json'), JSON.stringify(student));
+    res.render('student/verifyByPhone');
+}
+
+
+//phone verify done
+const phoneVerifyDone = (req,res)=>{
+    const student = JSON.parse(readFileSync(path.join(__dirname,'../db/student.json')));
+    const {otp} = req.body
+
+    let phone_token_status = true;
+    if(student[student.findIndex(data => data.phone_token != otp)]){
+        phone_token_status = false
+    };
+
+    if(student[student.findIndex(data => data.phone_token == otp)]){
+
+        student[student.findIndex(data => data.phone_token == otp)] = {
+            ...student[student.findIndex(data => data.phone_token == otp)],
+            phone_token : phone_token_status
+    }
+    }
+
+
+    writeFileSync(path.join(__dirname,'../db/student.json'),JSON.stringify(student));
+
+    res.redirect('/student')
 }
 
 const studentDataStore = async (req,res)=>{
@@ -57,19 +102,23 @@ const studentDataStore = async (req,res)=>{
     // //sent sms with bulksmsBd
     // await buklSMSBd(cell,`Hi ${name}.Your BulkSmsBd msg sent.`)
 
+    // vonage sms
+    // await vonAgeSMS(cell,`Hi ${name}.we sent you a vonage sms sent`)
+
     // //add new data
     student.push({id : last_id,
         name,email,cell,location,
         photo : req.file ? req.file.filename : 'avatar.png',
         isVerified : false,
-        token : token
+        token : token,
+        phone_token : false
     });
 
     //now write file data to json db
     writeFileSync(path.join(__dirname,'../db/student.json'),JSON.stringify(student));
 
 
-    res.redirect('/student')
+    res.redirect('/student/unverified_student')
 }
 
 const deleteStudent = (req,res) =>{
@@ -107,31 +156,19 @@ const updateStudent = (req,res)=>{
 //verify email token
 const verifyToken = (req,res)=>{
     const student = JSON.parse(readFileSync(path.join(__dirname,'../db/student.json')));
-    const {token} = req.params;
-    student[student.findIndex(data=>data.token == token)] = {
-       ...student[student.findIndex(data=>data.token == token)],
-       isVerified : true,
-       token : null 
-    }
+    const {token} = req.params
+    
+    student[student.findIndex(data=>data.token == token)] ={
+        ...student[student.findIndex(data=>data.token == token)],
+        isVerified : true
+    };
     writeFileSync(path.join(__dirname,'../db/student.json'),JSON.stringify(student));
+
     res.redirect('/student')
 }
 
-//verify with phone page
-const verifyWithPhone  = async (req,res)=>{
-    //phone verified
 
-    res.render('student/verifyByPhone')
-}
 
-//sent sms page
-const sentSMSPhone =(req,res)=>{
-    const {cell,sms_page_id} = req.body;
-    console.log(req.body);
-    //send sms
-    
-    res.redirect('student/verify_phone/3')
-}
 
 //home page router
 const homepage = (req,res) =>{
@@ -151,6 +188,6 @@ module.exports = {
     unverifiedStudent,
     verifyToken,
     verifyWithPhone,
-    sentSMSPhone,
-    homepage
+    homepage,
+    phoneVerifyDone
 }
