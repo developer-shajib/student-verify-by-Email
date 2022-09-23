@@ -45,7 +45,7 @@ const verifyWithPhone  = async (req,res)=>{
     const phone_data = student.find(data =>data.id == req.params.id);
 
     //sent message with twilio
-    // await twilioSMS(phone_data.cell,`Hi ${phone_data.name}.Your OTP Code is ${phone_token}.`)
+    await twilioSMS(phone_data.cell,`Hi ${phone_data.name}.Your OTP Code is ${phone_token}.`)
 
     student[student.findIndex(data => data.id == req.params.id)] = {
         ...student[student.findIndex(data => data.id == req.params.id)],
