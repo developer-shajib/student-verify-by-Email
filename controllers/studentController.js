@@ -62,16 +62,12 @@ const phoneVerifyDone = (req,res)=>{
     const student = JSON.parse(readFileSync(path.join(__dirname,'../db/student.json')));
     const {otp} = req.body
 
-    let phone_token_status = true;
-    if(student[student.findIndex(data => data.phone_token != otp)]){
-        phone_token_status = false
-    };
 
     if(student[student.findIndex(data => data.phone_token == otp)]){
 
         student[student.findIndex(data => data.phone_token == otp)] = {
             ...student[student.findIndex(data => data.phone_token == otp)],
-            phone_token : phone_token_status
+            phone_token : true
     }
     }
 
