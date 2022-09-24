@@ -9,7 +9,6 @@ const router = express.Router();
 
 
 
-
 //create router
 router.get('/', getAllStudent);
 router.get('/unverified_student', unverifiedStudent);
