@@ -1,5 +1,6 @@
 const { readFileSync, writeFileSync, readFile } = require('fs');
 const path = require('path');
+const { DayInstance } = require('twilio/lib/rest/bulkexports/v1/export/day');
 const buklSMSBd = require('../utility/bulkSmsBd');
 const studentVerified = require('../utility/sendMail');
 const { verifyEmail } = require('../utility/sendMail');
@@ -19,7 +20,7 @@ const getAllStudent = (req,res)=>{
 const unverifiedStudent = (req,res)=>{
     const student = JSON.parse(readFileSync(path.join(__dirname,'../db/student.json')));
 
-   const unverified = student.filter(data => data.isVerified == false && data.phone_token == false);
+   const unverified = student.filter(data => data.isVerified == false && data.phone_token == false || data.phone_token != true);
     res.render('../views/student/unVerified',{student : unverified})
 }
 
